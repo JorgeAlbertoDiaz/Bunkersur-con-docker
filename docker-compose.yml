@@ -1,0 +1,34 @@
+version: "2"
+
+services:
+
+  bunkersur-web:
+    build: docker/
+    ports:
+      - 9991:80
+    volumes:
+      - ./public_html:/var/www/html
+    container_name: bunkersur_web
+    links:
+      - bunkersur-db:db
+
+  bunkersur-db:
+    image: mysql/mysql-server:5.5
+    container_name: bunkersur_mysql
+    ports:
+      - 33991:3306
+    volumes:
+      - ./docker/mysql:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=mandraque9191
+
+  bunkersur-pma:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - 32991:80
+    container_name: bunkersur_phpmyadmin
+    links:
+      - bunkersur-db:db
+    environment:
+      MYSQL_ROOT_PASSWORD: mandraque9191
+      MYSQL_USERNAME: root
