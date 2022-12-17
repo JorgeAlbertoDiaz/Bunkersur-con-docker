@@ -18,6 +18,7 @@ services:
     ports:
       - 33991:3306
     volumes:
+      - ./docker/mysqldump:/docker-entrypoint-initdb.d
       - ./docker/mysql:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=mandraque9191
